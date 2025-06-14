@@ -8,7 +8,8 @@ export default function PetsLayout () {
                 backgroundColor: 'white',
             },
         }}>
-            <Stack.Screen name="index" />
+            <Stack.Screen name="add" />
+            <Stack.Screen name="[id]" />
         </Stack>
     );
 }

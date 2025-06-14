@@ -24,6 +24,11 @@ export default function RootLayout () {
             <Stack.Screen name="cart" />
             <Stack.Screen name="search" />
             <Stack.Screen name="chat" />
+            <Stack.Screen name="pets" />
+            <Stack.Screen name="products" />
+            <Stack.Screen name="profile" />
+            <Stack.Screen name="services" />
+            {/* <Stack.Screen name="notifications" /> */}
           </Stack>
         </CartProvider>
       </AuthProvider>

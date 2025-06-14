@@ -52,7 +52,7 @@ import {Text} from "@/components/ui/text";
 
 import {VStack} from "@/components/ui/vstack";
 
-import {ApiClient} from '../../../config/api';
+import {ApiClient} from '@/config/api';
 
 const AddPetScreen = () => {
     const [formData, setFormData] = useState({

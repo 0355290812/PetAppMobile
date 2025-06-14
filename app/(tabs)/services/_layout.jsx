@@ -11,22 +11,6 @@ export default function ServicesLayout () {
             }}
         >
             <Stack.Screen name="index" />
-            {/* <Stack.Screen
-                name="[id]"
-                options={{
-                    headerShown: true,
-                    headerTitle: "Service Details",
-                    presentation: "card"
-                }}
-            /> */}
-            {/* <Stack.Screen
-                name="bookings"
-                options={{
-                    headerShown: true,
-                    headerTitle: "My Bookings",
-                    presentation: "card"
-                }}
-            /> */}
         </Stack>
     );
 }

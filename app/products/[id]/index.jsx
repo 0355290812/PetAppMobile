@@ -199,7 +199,7 @@ const ProductDetailScreen = () => {
                 <Text className="text-gray-500 text-center mb-4">
                     Không tìm thấy thông tin sản phẩm
                 </Text>
-                <Button onPress={() => router.navigate("/products")} className="bg-blue-500">
+                <Button onPress={() => router.back()} className="bg-blue-500">
                     <ButtonText>Quay lại</ButtonText>
                 </Button>
             </Box>
@@ -218,19 +218,11 @@ const ProductDetailScreen = () => {
                 {/* Header */}
                 <HStack className="px-4 py-3 bg-white items-center justify-between absolute top-0 left-0 right-0 z-10">
                     <Pressable
-                        onPress={() => router.replace('/products')}
+                        onPress={() => router.back()}
                         className="w-10 h-10 rounded-full bg-white/70 items-center justify-center shadow-sm"
                     >
                         <Icon as={ChevronLeft} size="md" color="#374151" />
                     </Pressable>
-                    <HStack space="md">
-                        <Pressable
-                            onPress={handleShare}
-                            className="w-10 h-10 rounded-full bg-white/70 items-center justify-center shadow-sm"
-                        >
-                            <Icon as={Share2} size="md" color="#374151" />
-                        </Pressable>
-                    </HStack>
                 </HStack>
 
                 <ScrollView

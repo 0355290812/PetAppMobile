@@ -36,11 +36,11 @@ const Profile = () => {
             icon: 'location-outline',
             route: '/profile/addresses'
         },
-        // {
-        //     title: 'Thông báo',
-        //     icon: 'notifications-outline',
-        //     route: '/profile/notifications'
-        // },
+        {
+            title: 'Thông báo',
+            icon: 'notifications-outline',
+            route: '/profile/notifications'
+        },
         {
             title: 'Đơn hàng',
             icon: 'cart-outline',

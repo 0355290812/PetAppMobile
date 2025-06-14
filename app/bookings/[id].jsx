@@ -1,11 +1,10 @@
 import {View, ScrollView, ActivityIndicator, Alert, SafeAreaView, Pressable, Image} from 'react-native';
 import {useLocalSearchParams, router} from 'expo-router';
 import {useEffect, useState} from 'react';
-import {format} from 'date-fns';
-import {vi} from 'date-fns/locale';
 import {StatusBar} from 'expo-status-bar';
 import {ChevronLeft, Calendar, CreditCard, PawPrint, Bell, Info, Clock} from 'lucide-react-native';
 import {ApiClient} from '@/config/api';
+import {formatDate} from '@/utils/formatters';
 import {Icon} from "@/components/ui/icon";
 import {HStack} from "@/components/ui/hstack";
 import {VStack} from "@/components/ui/vstack";
@@ -24,8 +23,8 @@ import {
 
 // Status colors for visual representation
 const statusMap = {
-    pending: {text: 'Chờ xác nhận', color: 'orange', icon: Clock},
-    confirmed: {text: 'Đã xác nhận', color: 'green', icon: Calendar},
+    checkout: {text: 'Chưa thanh toán', color: 'orange', icon: Clock},
+    booked: {text: 'Đã xác nhận', color: 'green', icon: Calendar},
     completed: {text: 'Hoàn thành', color: 'blue', icon: Bell},
     cancelled: {text: 'Đã hủy', color: 'red', icon: Info},
 };
@@ -35,6 +34,7 @@ const paymentStatusMap = {
     pending: {text: 'Chưa thanh toán', color: 'orange'},
     paid: {text: 'Đã thanh toán', color: 'green'},
     refunded: {text: 'Đã hoàn tiền', color: 'blue'},
+    failed: {text: 'Thanh toán thất bại', color: 'red'},
 };
 
 // Bản dịch phương thức thanh toán
@@ -102,15 +102,6 @@ export default function BookingDetailScreen () {
             </Box>
         );
     }
-
-    const formatDate = (dateString) => {
-        try {
-            const date = new Date(dateString);
-            return format(date, 'dd/MM/yyyy', {locale: vi});
-        } catch (e) {
-            return 'Ngày không hợp lệ';
-        }
-    };
 
     const formatCurrency = (amount) => {
         return new Intl.NumberFormat('vi-VN', {

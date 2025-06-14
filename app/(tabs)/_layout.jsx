@@ -5,34 +5,7 @@ import {Icon} from "@/components/ui/icon";
 import {TouchableOpacity, View} from 'react-native';
 
 export default function TabLayout () {
-    const pathname = usePathname();
     const router = useRouter();
-    const [previousPath, setPreviousPath] = useState('');
-    const [hideTabBar, setHideTabBar] = useState(false);
-
-    const isProductDetailPage = pathname.match(/^\/products\/[^\/]+$/);
-    const isServiceDetailPage = pathname.match(/^\/services\/[^\/]+$/);
-    const isProductReviewsPage = pathname.match(/^\/products\/[^\/]+\/reviews$/);
-    const isServiceReviewsPage = pathname.match(/^\/services\/[^\/]+\/reviews$/);
-
-    // Sử dụng useEffect để theo dõi sự thay đổi đường dẫn và cập nhật trạng thái ẩn tab
-    useEffect(() => {
-        // Nếu đang ở trang chi tiết hoặc trang đánh giá, ẩn tab
-        if (isProductDetailPage || isServiceDetailPage || isProductReviewsPage || isServiceReviewsPage) {
-            setHideTabBar(true);
-        }
-        // Nếu đang ở trang danh sách sản phẩm, và từng ở trang orders 
-        // (nghĩa là đang trong quy trình chuyển từ orders->products->product detail)
-        else if (pathname === '/products' && previousPath === '/orders') {
-            setHideTabBar(true);
-        }
-        else {
-            setHideTabBar(false);
-        }
-
-        // Cập nhật đường dẫn trước đó
-        setPreviousPath(pathname);
-    }, [pathname]);
 
     const handleChatPress = () => {
         router.push('/chat');
@@ -44,7 +17,7 @@ export default function TabLayout () {
             <Tabs
                 screenOptions={{
                     headerShown: false,
-                    tabBarStyle: hideTabBar ? {display: "none"} : {
+                    tabBarStyle: {
                         backgroundColor: 'white',
                         borderTopWidth: 0,
                         borderTopColor: '#e2e8f0', // slate-200
@@ -122,7 +95,7 @@ export default function TabLayout () {
             </Tabs>
 
             {/* Floating Action Button với NativeWind */}
-            {!hideTabBar && (
+            {(
                 <TouchableOpacity
                     className="absolute w-14 h-14 bg-blue-300 rounded-full flex items-center justify-center right-5 bottom-28 shadow-md z-50 active:opacity-80"
                     onPress={handleChatPress}

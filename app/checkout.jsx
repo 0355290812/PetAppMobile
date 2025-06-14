@@ -216,7 +216,7 @@ const CheckoutScreen = () => {
 
                 // For credit card payments, redirect to Stripe payment screen
                 if (paymentMethod === 'credit-card' && response.payment && response.payment.clientSecret) {
-                    router.push({
+                    router.replace({
                         pathname: '/payments/stripe',
                         params: {
                             clientSecret: response.payment.clientSecret,
@@ -486,7 +486,7 @@ const CheckoutScreen = () => {
                         <Text className="text-xl font-bold text-blue-600">{formatVietnamCurrency(totalAmount)}</Text>
                     </HStack>
                     <Button
-                        className="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 p-4 rounded-xl h-fit"
+                        className="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 p-4 rounded-xl h-14"
                         onPress={handlePlaceOrder}
                         disabled={submitting || addresses.length === 0 || checkoutItems.length === 0}
                     >
