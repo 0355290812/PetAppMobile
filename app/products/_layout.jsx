@@ -1,6 +1,6 @@
 import {Stack} from 'expo-router';
 
-export default function PetsLayout () {
+export default function ProductsLayout () {
     return (
         <Stack screenOptions={{
             headerShown: false,
@@ -8,7 +8,8 @@ export default function PetsLayout () {
                 backgroundColor: 'white',
             },
         }}>
-            <Stack.Screen name="index" />
+            <Stack.Screen name="all" />
+            <Stack.Screen name="[id]" />
         </Stack>
     );
 }

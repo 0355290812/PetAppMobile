@@ -4,6 +4,7 @@ import {useAuth} from "@/contexts/AuthContext";
 import {Ionicons} from '@expo/vector-icons';
 import {ApiClient} from '@/config/api';
 import {router, useLocalSearchParams} from 'expo-router';
+import {formatDate} from '@/utils/formatters';
 import {
     AlertDialog,
     AlertDialogBackdrop,
@@ -24,7 +25,7 @@ import {VStack} from "@/components/ui/vstack";
 
 const BookingItem = ({booking, onPress, onPayBooking, onRebookService, onCancelBooking}) => {
     // Format the date and time
-    const bookingDate = new Date(booking.bookingDate).toLocaleDateString('vi-VN');
+    const bookingDate = formatDate(booking.bookingDate);
     const bookingTime = booking.timeSlot;
 
     return (
@@ -118,7 +119,7 @@ const BookingItem = ({booking, onPress, onPayBooking, onRebookService, onCancelB
 const Bookings = () => {
     const {user} = useAuth();
     const params = useLocalSearchParams();
-    const [activeTab, setActiveTab] = useState(params.tab || 'checkout');
+    const [activeTab, setActiveTab] = useState(params.status || 'booked');
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
@@ -177,6 +178,8 @@ const Bookings = () => {
     };
 
     const handlePayBooking = (booking) => {
+        console.log('Handling payment for booking:', booking);
+
         // Extract payment information from the booking
         if (booking.paymentId && booking.status === 'checkout') {
             const paymentInfo = booking.paymentId;

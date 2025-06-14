@@ -169,8 +169,6 @@ const BookingScreen = () => {
             });
             return;
         }
-        console.log(bookingData);
-
 
         try {
             setSubmitting(true);
@@ -198,12 +196,9 @@ const BookingScreen = () => {
             // Clear the temp storage
             await AsyncStorage.removeItem('serviceBooking');
 
-            console.log("Booking response:", response);
-
-
             // If payment method is card, redirect to Stripe payment page
             if (paymentMethod === 'credit_card' && response.payment && response.payment.clientSecret) {
-                router.push({
+                router.replace({
                     pathname: '/payments/stripe',
                     params: {
                         clientSecret: response.payment.clientSecret,
@@ -292,7 +287,7 @@ const BookingScreen = () => {
                     {/* Header */}
                     <HStack className="px-4 py-3 bg-white items-center border-b border-gray-200">
                         <Pressable
-                            onPress={handleSubmit}
+                            onPress={() => router.back()}
                             className="mr-3"
                         >
                             <Icon as={ChevronLeft} size="md" color="#374151" />
@@ -442,39 +437,32 @@ const BookingScreen = () => {
                             </VStack>
 
                             {/* Payment Method Section */}
-                            <VStack className="gap-4">
-                                <Heading size="sm">Phương thức thanh toán</Heading>
-
+                            <VStack className="bg-white p-4 rounded-lg border border-gray-200">
+                                <HStack className="items-center mb-3">
+                                    <Icon as={CreditCard} size="sm" color="#3B82F6" />
+                                    <Heading size="sm" className="ml-2">Phương thức thanh toán</Heading>
+                                </HStack>
                                 <RadioGroup value={paymentMethod} onChange={setPaymentMethod}>
-                                    <VStack space="md">
-                                        <Radio value="cash" className="mb-2">
-                                            <RadioIndicator>
-                                                <RadioIcon as={CircleIcon} />
-                                            </RadioIndicator>
-                                            <HStack className="items-center ml-2">
-                                                <Box className="mr-3 p-2 bg-green-50 rounded-lg">
-                                                    <Icon as={DollarSign} size="sm" color="#10b981" />
-                                                </Box>
-                                                <RadioLabel>Thanh toán trực tiếp</RadioLabel>
-                                            </HStack>
-                                        </Radio>
-
-                                        <Radio value="credit_card" className="mb-2">
-                                            <RadioIndicator>
-                                                <RadioIcon as={CircleIcon} />
-                                            </RadioIndicator>
-                                            <HStack className="items-center ml-2">
-                                                <Box className="mr-3 p-2 bg-blue-50 rounded-lg">
-                                                    <Icon as={CreditCard} size="sm" color="#3B82F6" />
-                                                </Box>
-                                                <RadioLabel>Thanh toán trực tuyến</RadioLabel>
-                                            </HStack>
-                                        </Radio>
-                                    </VStack>
+                                    <Radio value="cash" size="md" className="mb-2">
+                                        <RadioIndicator>
+                                            <RadioIcon as={CircleIcon} />
+                                        </RadioIndicator>
+                                        <RadioLabel>
+                                            <Text className="ml-2">Thanh toán trực tiếp</Text>
+                                        </RadioLabel>
+                                    </Radio>
+                                    <Radio value="credit_card" size="md">
+                                        <RadioIndicator>
+                                            <RadioIcon as={CircleIcon} />
+                                        </RadioIndicator>
+                                        <RadioLabel>
+                                            <Text className="ml-2">Thanh toán trực tuyến</Text>
+                                        </RadioLabel>
+                                    </Radio>
                                 </RadioGroup>
 
-                                {paymentMethod === 'CARD' && (
-                                    <Box className="bg-yellow-50 rounded-lg p-3">
+                                {paymentMethod === 'credit_card' && (
+                                    <Box className="bg-yellow-50 rounded-lg p-3 mt-3">
                                         <Text className="text-yellow-700">
                                             Bạn sẽ được chuyển hướng đến trang thanh toán an toàn sau khi xác nhận đặt lịch.
                                         </Text>
@@ -542,7 +530,7 @@ const BookingScreen = () => {
 
                             {/* Submit Button */}
                             <Button
-                                className="bg-blue-500 p-4 h-fit"
+                                className="bg-blue-500 p-4 h-14"
                                 onPress={handleSubmit}
                                 disabled={submitting || addresses.length === 0}
                             >

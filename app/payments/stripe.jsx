@@ -38,7 +38,7 @@ const StripeScreen = () => {
     // Determine if this is for an order or booking
     const isBooking = type === 'booking';
     const id = isBooking ? bookingId : orderId;
-    const cancelEndpoint = isBooking ? `/bookings/${ id }/cancel` : `/orders/${ id }/cancel`;
+    const cancelEndpoint = isBooking ? `/bookings?status=checkout` : `/orders?status=checkout`;
     const confirmationPath = isBooking ? '/bookings/confirmation' : '/orders/confirmation';
 
     useEffect(() => {
@@ -163,19 +163,19 @@ const StripeScreen = () => {
     const handleCancel = async () => {
         try {
             // Cancel the order or booking
-            await apiClient.post(cancelEndpoint, {
-            });
+            // await apiClient.put(cancelEndpoint, {
+            // });
             toast.show({
                 render: ({id}) => (
                     <Toast nativeID={id} action="info" variant="solid">
                         <VStack space="xs">
                             <ToastTitle>Thông báo</ToastTitle>
-                            <ToastDescription>{isBooking ? 'Lịch hẹn' : 'Đơn hàng'} đã được hủy</ToastDescription>
+                            <ToastDescription>{isBooking ? 'Lịch hẹn' : 'Đơn hàng'} đã huỷ thanh toán</ToastDescription>
                         </VStack>
                     </Toast>
                 ),
             });
-            router.replace('/');
+            router.replace(cancelEndpoint);
         } catch (error) {
             console.error(`Error cancelling ${ isBooking ? 'booking' : 'order' }:`, error);
             toast.show({
@@ -234,7 +234,7 @@ const StripeScreen = () => {
 
                 <VStack className="space-y-3 w-full">
                     <Button
-                        className="bg-blue-600 p-4 rounded-xl h-fit mb-2"
+                        className="bg-blue-600 p-4 rounded-xl h-14 mb-2"
                         onPress={handlePayment}
                         disabled={loading || paymentInProgress}
                     >
@@ -247,7 +247,7 @@ const StripeScreen = () => {
 
                     <Button
                         variant="outline"
-                        className="border-gray-300 p-4 rounded-xl h-fit"
+                        className="border-gray-300 p-4 rounded-xl h-14"
                         onPress={handleCancel}
                         disabled={loading || paymentInProgress}
                     >

@@ -182,7 +182,7 @@ export default function Index () {
                                 <Pressable
                                     key={pet._id}
                                     className="mr-5"
-                                    onPress={() => router.replace(`/pets/${ pet._id }`)}
+                                    onPress={() => router.push(`/pets/${ pet._id }`)}
                                 >
                                     <VStack className="items-center">
                                         <Box className="relative">

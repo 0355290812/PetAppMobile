@@ -174,7 +174,7 @@ const BookingConfirmationScreen = () => {
                 <VStack className="mt-auto space-y-3">
                     <Button
                         className="bg-blue-600 p-4 rounded-xl active:bg-blue-700 h-fit mb-2"
-                        onPress={() => router.replace('/bookings')}
+                        onPress={() => router.replace('/bookings?status=booked')}
                     >
                         <ButtonText className="font-bold">Xem lịch hẹn của tôi</ButtonText>
                     </Button>

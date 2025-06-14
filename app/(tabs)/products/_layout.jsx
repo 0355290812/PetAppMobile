@@ -9,8 +9,6 @@ export default function ProductsLayout () {
             },
         }}>
             <Stack.Screen name="index" />
-            <Stack.Screen name="all" />
-            <Stack.Screen name="[id]" />
         </Stack>
     );
 }

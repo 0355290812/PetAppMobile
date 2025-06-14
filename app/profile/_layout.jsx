@@ -31,13 +31,50 @@ export default function ProfileLayout () {
                     ) : null
             }}
         >
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="index"
                 options={{
                     title: "Tài khoản",
                     headerShown: false
                 }}
+            /> */}
+            <Stack.Screen
+                name="personal-info"
+                options={{
+                    title: "Thông tin cá nhân"
+                }}
             />
+            <Stack.Screen
+                name="account-info"
+                options={{
+                    title: "Thông tin tài khoản"
+                }}
+            />
+            <Stack.Screen
+                name="notifications"
+                options={{
+                    title: "Thông báo"
+                }}
+            />
+            <Stack.Screen
+                name="addresses"
+                options={{
+                    title: "Địa chỉ"
+                }}
+            />
+            <Stack.Screen
+                name="add-address"
+                options={{
+                    title: "Thêm địa chỉ"
+                }}
+            />
+            <Stack.Screen
+                name="edit-address"
+                options={{
+                    title: "Chỉnh sửa địa chỉ"
+                }}
+            />
+
         </Stack>
     );
 }
